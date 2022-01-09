@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.usuarios.controller;
 
+import com.bolsadeideas.springboot.app.login.service.LoginService;
 import com.bolsadeideas.springboot.app.usuarios.entity.Usuario;
 import com.bolsadeideas.springboot.app.usuarios.service.IUsuarioService;
 import org.apache.commons.logging.Log;
@@ -72,6 +73,7 @@ public class UsuarioController {
         Usuario usuario = new Usuario();
         model.addAttribute("usuario", usuario);
         model.addAttribute("modoCreacion", true);
+        model.addAttribute("tiposUsuarios", LoginService.RoleEnum.obtenerTodosRoles());
         model.addAttribute("titulo", "Crear usuario");
         return "usuarios/editar-usuario";
     }
@@ -82,6 +84,7 @@ public class UsuarioController {
 
         model.addAttribute("usuario", usuarioService.buscarPorNombre(nombre));
         model.addAttribute("modoCreacion", false);
+        model.addAttribute("tiposUsuarios", LoginService.RoleEnum.obtenerTodosRoles());
         model.addAttribute("titulo", "Editar usuario");
 
         return "usuarios/editar-usuario";
@@ -98,8 +101,11 @@ public class UsuarioController {
         } else {
             String mensajeFlash = modoCreacion ? "Usuario creado con éxito!" : "Usuario editado con éxito!";
 
-            usuarioService.guardar(usuario);
-            usuarioService.actualizar(usuario);
+            if (modoCreacion) {
+                usuarioService.guardar(usuario);
+            } else {
+                usuarioService.actualizar(usuario);
+            }
 
             status.setComplete();
             flash.addFlashAttribute("success", mensajeFlash);
@@ -116,7 +122,7 @@ public class UsuarioController {
         usuarioService.borrar(nombre);
         flash.addFlashAttribute("success", "Usuario eliminado con correctamente!");
 
-        return "redirect:usuarios/lista-usuarios";
+        return "redirect:/usuarios/lista-usuarios";
     }
 
     private boolean hasRole(String role) {

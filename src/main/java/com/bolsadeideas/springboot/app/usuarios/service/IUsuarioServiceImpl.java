@@ -3,6 +3,7 @@ package com.bolsadeideas.springboot.app.usuarios.service;
 import com.bolsadeideas.springboot.app.usuarios.entity.Usuario;
 import com.bolsadeideas.springboot.app.usuarios.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,9 @@ public class IUsuarioServiceImpl implements IUsuarioService {
 
     @Autowired
     private IUsuarioRepository usuarioRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -29,6 +33,7 @@ public class IUsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public void guardar(Usuario usuario) {
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuarioRepository.save(usuario);
     }
 
@@ -36,7 +41,8 @@ public class IUsuarioServiceImpl implements IUsuarioService {
     public void actualizar(Usuario usuario) {
         Optional<Usuario> usuarioBBDD = usuarioRepository.findById(usuario.getNombre());
         if (usuarioBBDD.isPresent()) {
-//            usuarioBBDD.get().set
+            usuarioBBDD.get().setTipoUsuario(usuario.getTipoUsuario());
+            usuarioRepository.save(usuario);
         }
     }
 

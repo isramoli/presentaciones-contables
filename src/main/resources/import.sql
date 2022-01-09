@@ -23,11 +23,11 @@ INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(3, 2, 6);
 
 /* Creamos algunos usuarios con sus roles */
 INSERT INTO `usuarios` (nombre, password) VALUES ('andres','$2a$10$O9wxmH/AeyZZzIS09Wp8YOEMvFnbRVJ8B4dmAMVSGloR62lj.yqXG');
-INSERT INTO `usuarios` (nombre, password) VALUES ('admin','$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS');
-INSERT INTO `usuarios` (nombre, password) VALUES ('isra','$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS');
+INSERT INTO `usuarios` (nombre, password, tipo_usuario) VALUES ('admin','$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS', 'ROLE_FISCAL_GENERAL');
+INSERT INTO `usuarios` (nombre, password, tipo_usuario) VALUES ('isra','$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS', 'ROLE_ADMIN');
 
 
-INSERT INTO `authorities` (clave_usuario, authority) VALUES ('andres','ROLE_USER');
-INSERT INTO `authorities` (clave_usuario, authority) VALUES ('admin','ROLE_ADMIN');
-INSERT INTO `authorities` (clave_usuario, authority) VALUES ('admin','ROLE_USER');
-INSERT INTO `authorities` (clave_usuario, authority) VALUES ('isra','ROLE_ADMIN');
+-- INSERT INTO `authorities` (clave_usuario, authority) VALUES ('andres','ROLE_USER');
+-- INSERT INTO `authorities` (clave_usuario, authority) VALUES ('admin','ROLE_ADMIN');
+-- INSERT INTO `authorities` (clave_usuario, authority) VALUES ('admin','ROLE_USER');
+-- INSERT INTO `authorities` (clave_usuario, authority) VALUES ('isra','ROLE_ADMIN');

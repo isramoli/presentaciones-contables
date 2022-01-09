@@ -24,11 +24,7 @@ public class Usuario implements Serializable {
 	private String password;
 
 	@Column
-	private Long tipoUsuario;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "clave_usuario")
-	private List<Role> roles;
+	private String tipoUsuario;
 
 	public String getNombre() {
 		return nombre;
@@ -46,17 +42,16 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
 }

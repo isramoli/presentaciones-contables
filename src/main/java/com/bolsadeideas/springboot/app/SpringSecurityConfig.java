@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.bolsadeideas.springboot.app.auth.handler.LoginSuccessHandler;
-import com.bolsadeideas.springboot.app.models.service.JpaUserDetailsService;
+import com.bolsadeideas.springboot.app.login.service.LoginService;
 
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @Configuration
@@ -23,8 +23,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private LoginSuccessHandler successHandler;
 
     @Autowired
-    private JpaUserDetailsService userDetailsService
-            ;
+    private LoginService loginService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -53,7 +52,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
-        build.userDetailsService(userDetailsService)
+        build.userDetailsService(loginService)
                 .passwordEncoder(passwordEncoder);
     }
 

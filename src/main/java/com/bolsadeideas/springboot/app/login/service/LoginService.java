@@ -1,9 +1,13 @@
-package com.bolsadeideas.springboot.app.models.service;
+package com.bolsadeideas.springboot.app.login.service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import com.bolsadeideas.springboot.app.usuarios.entity.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +24,9 @@ import com.bolsadeideas.springboot.app.models.dao.IUsuarioDao;
 import com.bolsadeideas.springboot.app.usuarios.entity.Usuario;
 
 @Service("jpaUserDetailsService")
-public class JpaUserDetailsService implements UserDetailsService {
+public class LoginService implements UserDetailsService {
 
-    private final Logger logger = LoggerFactory.getLogger(JpaUserDetailsService.class);
+    private final Logger logger = LoggerFactory.getLogger(LoginService.class);
 
     @Autowired
     private IUsuarioDao usuarioDao;
@@ -39,11 +43,7 @@ public class JpaUserDetailsService implements UserDetailsService {
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-
-        for (Role role : usuario.getRoles()) {
-            logger.info("Role: ".concat(role.getAuthority()));
-            authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
-        }
+        RoleEnum.obtenRolesHijos(usuario.getTipoUsuario()).forEach(rolHijo -> authorities.add(new SimpleGrantedAuthority(rolHijo)));
 
         if (authorities.isEmpty()) {
             logger.error("Error en el Login: Usuario '" + nombre + "' no tiene roles asignados!");
@@ -53,18 +53,20 @@ public class JpaUserDetailsService implements UserDetailsService {
         return new User(usuario.getNombre(), usuario.getPassword(), true, true, true, true, authorities);
     }
 
-    private enum RoleEnum implements GrantedAuthority {
+    public enum RoleEnum implements GrantedAuthority {
 
-        ADMIN(Code.ROLE_ADMIN, Code.NAME_ADMIN),
-        FISCAL_GENERAL(Code.ROLE_FISCAL_GENERAL, Code.NAME_FISCAL_GENERAL),
-        FISCAL(Code.ROLE_FISCAL, Code.NAME_FISCAL),
-        CUENTADANTE(Code.ROLE_CUENTADANTE, Code.NAME_CUENTADANTE);
+        ROLE_ADMIN(Code.ROLE_ADMIN, Code.VALOR_ADMIN, Code.NAME_ADMIN),
+        ROLE_FISCAL_GENERAL(Code.ROLE_FISCAL_GENERAL, Code.VALOR_FISCAL_GENERAL, Code.NAME_FISCAL_GENERAL),
+        ROLE_FISCAL(Code.ROLE_FISCAL, Code.VALOR_FISCAL, Code.NAME_FISCAL),
+        ROLE_CUENTADANTE(Code.ROLE_CUENTADANTE, Code.VALOR_CUENTADANTE, Code.NAME_CUENTADANTE);
 
         private final String role;
+        private final int valor;
         private final String nombre;
 
-        RoleEnum(String role, String nombre) {
+        RoleEnum(String role, int valor, String nombre) {
             this.role = role;
+            this.valor = valor;
             this.nombre = nombre;
         }
 
@@ -77,18 +79,41 @@ public class JpaUserDetailsService implements UserDetailsService {
             return nombre;
         }
 
+        public int getValor() {
+            return valor;
+        }
+
+        public static List<String> obtenRolesHijos(String role) {
+            List<String> respuesta;
+            Optional<RoleEnum> roleBuscado = Stream.of(RoleEnum.values()).filter(roleEnum -> roleEnum.role.equals(role)).findAny();
+            if (roleBuscado.isPresent()) {
+                respuesta = Stream.of(RoleEnum.values()).filter(roleEnum -> roleEnum.valor >= roleBuscado.get().getValor()).map(RoleEnum::getAuthority).collect(Collectors.toList());
+            } else {
+                respuesta = new ArrayList<>();
+            }
+            return respuesta;
+        }
+
+        public static Map<String, String> obtenerTodosRoles() {
+            return Stream.of(RoleEnum.values()).collect(Collectors.toMap(RoleEnum::getAuthority, RoleEnum::getNombre, (s, s2) -> s, LinkedHashMap::new));
+        }
+
         public static class Code {
             public static final String ROLE_ADMIN = "ROLE_ADMIN";
             public static final String NAME_ADMIN = "Administador";
+            public static final int VALOR_ADMIN = 0;
 
             public static final String ROLE_FISCAL_GENERAL = "ROLE_FISCAL_GENERAL";
             public static final String NAME_FISCAL_GENERAL = "Fiscal general";
+            public static final int VALOR_FISCAL_GENERAL = 1;
 
             public static final String ROLE_FISCAL = "ROLE_FISCAL";
             public static final String NAME_FISCAL = "Fiscal";
+            public static final int VALOR_FISCAL = 2;
 
             public static final String ROLE_CUENTADANTE = "ROLE_CUENTADANTE";
             public static final String NAME_CUENTADANTE = "Cuentadante";
+            public static final int VALOR_CUENTADANTE = 3;
         }
     }
 
