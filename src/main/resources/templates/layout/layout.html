@@ -23,10 +23,10 @@
                     <a class="nav-link" th:href="@{/listar}">Cliente</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/usuarios/lista-usuarios}">Usuarios</a>
+                    <a class="nav-link" sec:authorize="${hasRole('ROLE_ADMIN')}" th:href="@{/usuarios/lista-usuarios}">Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/listar}">Municipios</a>
+                    <a class="nav-link" th:href="@{/municipios/lista-municipios}">Municipios</a>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">

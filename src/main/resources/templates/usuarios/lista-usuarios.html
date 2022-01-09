@@ -18,24 +18,22 @@
                 <thead class="thead-inverse">
                 <tr>
                     <th>Nombre</th>
-                    <th>Password</th>
+                    <th>Tipo usuario</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="usuario: ${usuarios}">
-                    <td th:text="${usuario.nombre}">
-                        <a class="btn btn-primary btn-xs" th:href="@{/usuarios/ver/} + ${usuario.nombre}"
-                           th:text="${usuario.nombre}"></a></td>
-                    <td th:text="${usuario.password}"></td>
+                    <td th:text="${usuario.nombre}"></td>
+                    <td th:text="${T(edu.viu.presentacionescontables.config.RoleEnum).obtenDescripcionPorRole(usuario.tipoUsuario)}"></td>
                     <td>
                         <a class="btn btn-primary btn-xs"
-                           th:href="@{/usuarios/editar-usuario/} + ${usuario.nombre}" th:text="'Editar'"></a>
+                           th:href="@{/usuarios/editar-usuario/} + ${usuario.nombre}" th:text="Editar"></a>
                     </td>
                     <td>
                         <a class="btn btn-danger btn-xs"
-                           th:href="@{/usuarios/eliminar/} + ${usuario.nombre}" th:text="'Eliminar'"
+                           th:href="@{/usuarios/eliminar/} + ${usuario.nombre}" th:text="Eliminar"
                            onclick="return confirm('Estas seguro que quieres eliminar al usuario?');"></a>
                     </td>
                 </tr>

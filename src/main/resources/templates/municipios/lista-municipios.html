@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container py-4">
+
+    <div class="card bg-light">
+        <div class="card-header" th:text="${titulo}"></div>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a th:href="@{/municipios/editar-municipio}"
+                   class="btn btn-primary btn-xs"
+                   sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())}">
+                    Crear municipio
+                </a>
+            </h4>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th:block sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_FISCAL.getRole())}">
+                        <th>Cuentadante</th>
+                        <th:block sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())}">
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </th:block>
+                    </th:block>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="municipio: ${municipios}">
+                    <td th:text="${municipio.nombre}"></td>
+                    <td th:text="${municipio.categoria}"></td>
+                    <th:block sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_FISCAL.getRole())}">
+                        <td th:text="${municipio.cuentadante.nombre}"></td>
+                        <th:block sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())}">
+                            <td>
+                                <a class="btn btn-primary btn-xs"
+                                   th:href="@{/municipios/editar-municipio/} + ${municipio.nombre}" th:text="Editar"></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger btn-xs"
+                                   th:href="@{/municipios/eliminar/} + ${municipio.nombre}" th:text="Eliminar"
+                                   onclick="return confirm('Estas seguro que quieres eliminar el municipio?');"></a>
+                            </td>
+                        </th:block>
+                    </th:block>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
