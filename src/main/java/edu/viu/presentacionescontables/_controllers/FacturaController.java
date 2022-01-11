@@ -1,4 +1,4 @@
-package edu.viu.presentacionescontables.controllers;
+package edu.viu.presentacionescontables._controllers;
 
 import java.util.List;
 import java.util.Map;
@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.viu.presentacionescontables.models.entity.Cliente;
-import edu.viu.presentacionescontables.models.entity.Factura;
-import edu.viu.presentacionescontables.models.entity.ItemFactura;
-import edu.viu.presentacionescontables.models.entity.Producto;
-import edu.viu.presentacionescontables.models.service.IClienteService;
+import edu.viu.presentacionescontables._models.entity.Cliente;
+import edu.viu.presentacionescontables._models.entity.Factura;
+import edu.viu.presentacionescontables._models.entity.ItemFactura;
+import edu.viu.presentacionescontables._models.entity.Producto;
+import edu.viu.presentacionescontables._models.service.IClienteService;
 
 @Secured("ROLE_ADMIN")
 @Controller

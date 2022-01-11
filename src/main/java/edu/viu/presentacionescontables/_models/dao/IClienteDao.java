@@ -1,6 +1,6 @@
-package edu.viu.presentacionescontables.models.dao;
+package edu.viu.presentacionescontables._models.dao;
 
-import edu.viu.presentacionescontables.models.entity.Cliente;
+import edu.viu.presentacionescontables._models.entity.Cliente;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

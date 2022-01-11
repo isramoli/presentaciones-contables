@@ -1,8 +1,8 @@
-package edu.viu.presentacionescontables.controllers;
+package edu.viu.presentacionescontables._controllers;
 
-import edu.viu.presentacionescontables.models.entity.Cliente;
-import edu.viu.presentacionescontables.models.service.IClienteService;
-import edu.viu.presentacionescontables.models.service.IUploadFileService;
+import edu.viu.presentacionescontables._models.entity.Cliente;
+import edu.viu.presentacionescontables._models.service.IClienteService;
+import edu.viu.presentacionescontables._models.service.IUploadFileService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

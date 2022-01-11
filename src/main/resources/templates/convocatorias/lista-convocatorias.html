@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container py-4">
+
+    <div class="card bg-light">
+        <div class="card-header" th:text="${titulo}"></div>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a th:href="@{/convocatorias/editar-convocatoria}"
+                   class="btn btn-primary btn-xs"
+                   sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_FISCAL_GENERAL.getRole())}">
+                    Crear convocatoria
+                </a>
+            </h4>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Fecha apertura</th>
+                    <th>Fecha cierre</th>
+                    <th>Abierta</th>
+                    <th>Doc. respaldatoria req.</th>
+                    <th:block sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_FISCAL_GENERAL.getRole())}">
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </th:block>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="convocatoria: ${convocatorias}">
+                    <td th:text="${convocatoria.nombre}"></td>
+                    <td th:text="${convocatoria.descripcion}"></td>
+                    <td th:text="${#temporals.format(convocatoria.fechaApertura, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${#temporals.format(convocatoria.fechaCierre, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${convocatoria.abierta ? 'Sí' : 'No'}"></td>
+                    <td th:text="${T(edu.viu.presentacionescontables.convocatorias.Enum.TipoDocumentacionEnum).obtenDescripcionPorRole(convocatoria.documentacionRespaldatoriaRequerida)}"></td>
+                    <th:block sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_FISCAL_GENERAL.getRole())}">
+                        <td>
+                            <a class="btn btn-primary btn-xs"
+                               th:href="@{/convocatorias/editar-convocatoria/} + ${convocatoria.nombre}" th:text="Editar"></a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-xs"
+                               th:href="@{/convocatorias/eliminar/} + ${convocatoria.nombre}" th:text="Eliminar"
+                               onclick="return confirm('Estas seguro que quieres eliminar el convocatoria?');"></a>
+                        </td>
+                    </th:block>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

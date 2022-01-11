@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container py-4">
+
+    <div class="card bg-dark text-white">
+        <div class="card-header" th:text="${titulo}"></div>
+        <div class="card-body">
+
+            <div th:object="${convocatoria}" th:remove="tag">
+                <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
+                    role="alert">
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                </ul>
+            </div>
+
+            <form th:action="@{/convocatorias/editar-convocatoria}" th:object="${convocatoria}" method="post"
+                  enctype="multipart/form-data">
+                <input type="hidden" name="modoCreacion" th:value="${modoCreacion}"/>
+                <div class="form-group row">
+                    <label th:for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-6">
+                        <input type="text"
+                               th:field="*{nombre}"
+                               class="form-control"
+                               th:readonly="${!modoCreacion}"
+                               th:errorclass="'form-control alert-danger'"
+                               required
+                               maxlength="100"/>
+                        <small class="form-text text-danger"
+                               th:if="${#fields.hasErrors('nombre')}"
+                               th:errors="*{nombre}">
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label th:for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
+                    <div class="col-sm-6">
+                        <textarea
+                               th:field="*{descripcion}"
+                               class="form-control"
+                               style="resize: none;"
+                               th:errorclass="'form-control alert-danger'"
+                               maxlength="2000"
+                               minlength="0"></textarea>
+                        <small class="form-text text-danger"
+                               th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label th:for="fechaApertura" class="col-sm-2 col-form-label">Fecha apertura</label>
+                    <div class="col-sm-6">
+                        <input type="datetime-local"
+                               th:field="*{fechaApertura}"
+                               class="form-control"
+                               required
+                               th:errorclass="'form-control alert-danger'"/>
+                        <small class="form-text text-danger"
+                               th:if="${#fields.hasErrors('fechaApertura')}" th:errors="*{fechaApertura}"></small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label th:for="fechaCierre" class="col-sm-2 col-form-label">Fecha cierre</label>
+                    <div class="col-sm-6">
+                        <input type="datetime-local"
+                               th:field="*{fechaCierre}"
+                               class="form-control"
+                               required
+                               th:errorclass="'form-control alert-danger'"/>
+                        <small class="form-text text-danger"
+                               th:if="${#fields.hasErrors('fechaCierre')}" th:errors="*{fechaCierre}"></small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label th:for="abierta" class="col-sm-2 col-form-label">Abierta</label>
+                    <div class="col-sm-6">
+                        <select th:field="*{abierta}"
+                                class="form-control"
+                                th:errorclass="'form-control alert-danger'"
+                                required>
+                            <option th:text="${'Sí'}" th:value="${1}"></option>
+                            <option th:text="${'No'}" th:value="${0}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label th:for="documentacionReglamentaria" class="col-sm-2 col-form-label">Documentación respaldatoria requerida</label>
+                    <div class="col-sm-6">
+                        <select th:field="*{documentacionRespaldatoriaRequerida}"
+                                class="form-control"
+                                th:errorclass="'form-control alert-danger'"
+                                required>
+                            <option th:each="tipo : ${T(edu.viu.presentacionescontables.convocatorias.Enum.TipoDocumentacionEnum).obtenerTodosTipos()}"
+                                    th:value="${tipo.key}"
+                                    th:text="${tipo.value}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="submit" th:value="${titulo}" id="btnSubmit"
+                               class="btn btn-secondary" onclick="validarFormulario();"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+<script>
+    function validarFormulario() {
+
+    }
+
+    $(document).ready(function () {
+        $("#btnSubmit").click(function (event) {
+            if ($("#fechaApertura").val() >= $("#fechaCierre").val()) {
+                alert("La fecha de cierre tiene que ser posterior a la de apertura");
+                event.preventDefault();
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

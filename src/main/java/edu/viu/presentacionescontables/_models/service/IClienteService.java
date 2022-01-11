@@ -1,13 +1,13 @@
-package edu.viu.presentacionescontables.models.service;
+package edu.viu.presentacionescontables._models.service;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import edu.viu.presentacionescontables.models.entity.Cliente;
-import edu.viu.presentacionescontables.models.entity.Factura;
-import edu.viu.presentacionescontables.models.entity.Producto;
+import edu.viu.presentacionescontables._models.entity.Cliente;
+import edu.viu.presentacionescontables._models.entity.Factura;
+import edu.viu.presentacionescontables._models.entity.Producto;
 
 public interface IClienteService {
 

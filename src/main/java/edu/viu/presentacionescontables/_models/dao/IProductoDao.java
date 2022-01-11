@@ -1,8 +1,8 @@
-package edu.viu.presentacionescontables.models.dao;
+package edu.viu.presentacionescontables._models.dao;
 
 import java.util.List;
 
-import edu.viu.presentacionescontables.models.entity.Producto;
+import edu.viu.presentacionescontables._models.entity.Producto;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

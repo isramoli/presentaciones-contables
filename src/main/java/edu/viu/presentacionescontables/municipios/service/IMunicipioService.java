@@ -14,8 +14,6 @@ public interface IMunicipioService {
 
     void guardar(Municipio usuario);
 
-    void actualizar(Municipio usuario);
-
     void borrar(String nombre);
 
     List<Usuario> buscarUsuarios();

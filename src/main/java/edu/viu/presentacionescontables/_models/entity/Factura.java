@@ -1,4 +1,4 @@
-package edu.viu.presentacionescontables.models.entity;
+package edu.viu.presentacionescontables._models.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

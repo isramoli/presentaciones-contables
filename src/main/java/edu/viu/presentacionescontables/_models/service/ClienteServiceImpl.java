@@ -1,4 +1,4 @@
-package edu.viu.presentacionescontables.models.service;
+package edu.viu.presentacionescontables._models.service;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.viu.presentacionescontables.models.dao.IClienteDao;
-import edu.viu.presentacionescontables.models.dao.IFacturaDao;
-import edu.viu.presentacionescontables.models.dao.IProductoDao;
-import edu.viu.presentacionescontables.models.entity.Cliente;
-import edu.viu.presentacionescontables.models.entity.Factura;
-import edu.viu.presentacionescontables.models.entity.Producto;
+import edu.viu.presentacionescontables._models.dao.IClienteDao;
+import edu.viu.presentacionescontables._models.dao.IFacturaDao;
+import edu.viu.presentacionescontables._models.dao.IProductoDao;
+import edu.viu.presentacionescontables._models.entity.Cliente;
+import edu.viu.presentacionescontables._models.entity.Factura;
+import edu.viu.presentacionescontables._models.entity.Producto;
 
 @Service
 public class ClienteServiceImpl implements IClienteService{

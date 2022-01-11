@@ -1,12 +1,7 @@
 package edu.viu.presentacionescontables.login.service;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import edu.viu.presentacionescontables.config.RoleEnum;
 import edu.viu.presentacionescontables.usuarios.entity.Usuario;
@@ -22,7 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.viu.presentacionescontables.models.dao.IUsuarioDao;
+import edu.viu.presentacionescontables._models.dao.IUsuarioDao;
 
 @Service("jpaUserDetailsService")
 public class LoginService implements UserDetailsService {

@@ -18,7 +18,7 @@
                 </ul>
             </div>
 
-            <form th:action="@{/municipios/editar-municipio}" th:object="${municipio}" method="post"
+            <form th:action="@{convocatorias}" th:object="${municipio}" method="post"
                   enctype="multipart/form-data">
                 <input type="hidden" name="modoCreacion" th:value="${modoCreacion}"/>
                 <div class="form-group row">

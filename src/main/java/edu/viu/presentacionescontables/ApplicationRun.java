@@ -1,6 +1,6 @@
 package edu.viu.presentacionescontables;
 
-import edu.viu.presentacionescontables.models.service.IUploadFileService;
+import edu.viu.presentacionescontables._models.service.IUploadFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

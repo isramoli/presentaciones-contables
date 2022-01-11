@@ -1,7 +1,7 @@
-package edu.viu.presentacionescontables.municipios.service;
+package edu.viu.presentacionescontables.pesentaciones.service;
 
-import edu.viu.presentacionescontables.municipios.entity.Municipio;
-import edu.viu.presentacionescontables.municipios.repository.IMunicipioRepository;
+import edu.viu.presentacionescontables.pesentaciones.entity.Presentacion;
+import edu.viu.presentacionescontables.pesentaciones.repository.IPresentacionRepository;
 import edu.viu.presentacionescontables.usuarios.entity.Usuario;
 import edu.viu.presentacionescontables.usuarios.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class IMunicipioServiceImpl implements IMunicipioService {
+public class IPresentacionServiceImpl implements IPresentacionService {
 
     @Autowired
-    private IMunicipioRepository municipioRepository;
+    private IPresentacionRepository municipioRepository;
 
     @Autowired
     private IUsuarioService usuarioService;
@@ -26,19 +26,19 @@ public class IMunicipioServiceImpl implements IMunicipioService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Municipio> findAll() {
-        return (List<Municipio>) municipioRepository.findAll();
+    public List<Presentacion> findAll() {
+        return (List<Presentacion>) municipioRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Municipio> buscarPorNombre(String nombre) {
+    public Optional<Presentacion> buscarPorNombre(String nombre) {
         return municipioRepository.findById(nombre);
     }
 
     @Override
-    public void guardar(Municipio municipio) {
-        municipioRepository.save(municipio);
+    public void guardar(Presentacion presentacion) {
+        municipioRepository.save(presentacion);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class UsuarioController {
         return "usuarios/lista-usuarios";
     }
 
-    @Secured("ROLE_ADMIN")
+    @PreAuthorize("hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())")
     @GetMapping(value = "/editar-usuario")
     public String crear(Model model) {
         Usuario usuario = new Usuario();
@@ -54,7 +54,7 @@ public class UsuarioController {
         return "usuarios/editar-usuario";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())")
     @GetMapping("/editar-usuario/{nombre}")
     public String editar(@PathVariable String nombre, Model model) {
 
@@ -66,7 +66,7 @@ public class UsuarioController {
         return "usuarios/editar-usuario";
     }
 
-    @Secured("ROLE_ADMIN")
+    @PreAuthorize("hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())")
     @PostMapping("/editar-usuario")
     public String guardar(@Valid Usuario usuario, BindingResult result, Model model, boolean modoCreacion,
                           RedirectAttributes flash, SessionStatus status) {
@@ -91,7 +91,7 @@ public class UsuarioController {
         return respuesta;
     }
 
-    @Secured("ROLE_ADMIN")
+    @PreAuthorize("hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())")
     @GetMapping(value = "/eliminar/{nombre}")
     public String eliminar(@PathVariable String nombre, RedirectAttributes flash) {
 

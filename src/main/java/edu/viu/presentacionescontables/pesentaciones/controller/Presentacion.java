@@ -1,7 +1,6 @@
-package edu.viu.presentacionescontables.municipios.controller;
+package edu.viu.presentacionescontables.pesentaciones.controller;
 
-import edu.viu.presentacionescontables.municipios.entity.Municipio;
-import edu.viu.presentacionescontables.municipios.service.IMunicipioService;
+import edu.viu.presentacionescontables.pesentaciones.service.IPresentacionService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,28 +22,28 @@ import java.util.List;
 @Controller
 @RequestMapping("/municipios")
 @SessionAttributes("municipios")
-public class MunicipioController {
+public class Presentacion {
 
     protected final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
-    private IMunicipioService municipioService;
+    private IPresentacionService municipioService;
 
     @PreAuthorize("hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_CUENTADANTE.getRole())")
     @GetMapping(value = "/lista-municipios")
     public String listarmunicipios(Model model) {
-        List<Municipio> municipios = municipioService.findAll();
+        List<edu.viu.presentacionescontables.pesentaciones.entity.Presentacion> presentaciones = municipioService.findAll();
 
         model.addAttribute("titulo", "Listado de municipios");
-        model.addAttribute("municipios", municipios);
+        model.addAttribute("municipios", presentaciones);
         return "municipios/lista-municipios";
     }
 
     @PreAuthorize("hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())")
     @GetMapping(value = "/editar-municipio")
     public String crear(Model model) {
-        Municipio municipio = new Municipio();
-        model.addAttribute("municipio", municipio);
+        edu.viu.presentacionescontables.pesentaciones.entity.Presentacion presentacion = new edu.viu.presentacionescontables.pesentaciones.entity.Presentacion();
+        model.addAttribute("municipio", presentacion);
         model.addAttribute("modoCreacion", true);
         model.addAttribute("listaCuentadantes", municipioService.buscarUsuarios());
         model.addAttribute("titulo", "Crear municipio");
@@ -65,7 +64,7 @@ public class MunicipioController {
 
     @PreAuthorize("hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())")
     @PostMapping("/editar-municipio")
-    public String guardar(@Valid Municipio municipio, BindingResult result, Model model, boolean modoCreacion,
+    public String guardar(@Valid edu.viu.presentacionescontables.pesentaciones.entity.Presentacion presentacion, BindingResult result, Model model, boolean modoCreacion,
                           RedirectAttributes flash, SessionStatus status) {
         String respuesta;
         if (result.hasErrors()) {
@@ -74,7 +73,7 @@ public class MunicipioController {
         } else {
             String mensajeFlash = modoCreacion ? "Municipio creado con éxito!" : "Municipio editado con éxito!";
 
-            municipioService.guardar(municipio);
+            municipioService.guardar(presentacion);
 
             status.setComplete();
             flash.addFlashAttribute("success", mensajeFlash);

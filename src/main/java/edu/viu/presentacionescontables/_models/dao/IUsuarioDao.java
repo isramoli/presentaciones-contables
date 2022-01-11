@@ -1,4 +1,4 @@
-package edu.viu.presentacionescontables.models.dao;
+package edu.viu.presentacionescontables._models.dao;
 
 import edu.viu.presentacionescontables.usuarios.entity.Usuario;
 import org.springframework.data.repository.CrudRepository;
