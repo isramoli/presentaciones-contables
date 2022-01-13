@@ -49,6 +49,14 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
+	public List<Municipio> getMunicipios() {
+		return municipios;
+	}
+
+	public void setMunicipios(List<Municipio> municipios) {
+		this.municipios = municipios;
+	}
+
 	/**
 	 * 
 	 */

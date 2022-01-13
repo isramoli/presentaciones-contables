@@ -1,11 +1,12 @@
 package edu.viu.presentacionescontables.pesentaciones.service;
 
+import edu.viu.presentacionescontables.convocatorias.entity.Convocatoria;
+import edu.viu.presentacionescontables.convocatorias.service.IConvocatoriaService;
+import edu.viu.presentacionescontables.municipios.entity.Municipio;
+import edu.viu.presentacionescontables.municipios.service.IMunicipioService;
 import edu.viu.presentacionescontables.pesentaciones.entity.Presentacion;
 import edu.viu.presentacionescontables.pesentaciones.repository.IPresentacionRepository;
-import edu.viu.presentacionescontables.usuarios.entity.Usuario;
-import edu.viu.presentacionescontables.usuarios.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,38 +17,44 @@ import java.util.Optional;
 public class IPresentacionServiceImpl implements IPresentacionService {
 
     @Autowired
-    private IPresentacionRepository municipioRepository;
+    private IPresentacionRepository presentacionRepository;
 
     @Autowired
-    private IUsuarioService usuarioService;
+    private IConvocatoriaService iConvocatoriaService;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private IMunicipioService iMunicipioService;
+
 
     @Override
     @Transactional(readOnly = true)
     public List<Presentacion> findAll() {
-        return (List<Presentacion>) municipioRepository.findAll();
+        return (List<Presentacion>) presentacionRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Presentacion> buscarPorNombre(String nombre) {
-        return municipioRepository.findById(nombre);
+    public Optional<Presentacion> buscarPorId(long id) {
+        return presentacionRepository.findById(id);
     }
 
     @Override
     public void guardar(Presentacion presentacion) {
-        municipioRepository.save(presentacion);
+        presentacionRepository.save(presentacion);
     }
 
     @Override
-    public void borrar(String nombre) {
-        municipioRepository.deleteById(nombre);
+    public void borrar(long id) {
+        presentacionRepository.deleteById(id);
     }
 
     @Override
-    public List<Usuario> buscarUsuarios() {
-        return usuarioService.buscarUsuariosCuentadantes();
+    public List<Convocatoria> buscarConvocatorias() {
+        return iConvocatoriaService.buscarTodasConvocatorias();
+    }
+
+    @Override
+    public List<Municipio> buscarMunicipios() {
+        return iMunicipioService.buscarTodosMunicipios();
     }
 }

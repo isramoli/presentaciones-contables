@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container py-4">
+
+    <div class="card bg-light">
+        <div class="card-header" th:text="${titulo}"></div>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a th:href="@{/presentaciones/editar-presentacion}"
+                   class="btn btn-primary btn-xs"
+                   sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())}">
+                    Crear presentación
+                </a>
+            </h4>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha presentación</th>
+                    <th>Abierta</th>
+                    <th>Documento</th>
+                    <th>Convocatoria</th>
+                    <th>Municipio</th>
+                    <th:block sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_FISCAL.getRole())}">
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </th:block>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="presentacion: ${presentaciones}">
+                    <td th:text="${presentacion.id}"></td>
+                    <td th:text="${presentacion.fechaPresentacion}"></td>
+                    <td th:text="${presentacion.abierta}"></td>
+                    <td th:text="${presentacion.documentoPresentacion}"></td>
+                    <td th:text="${presentacion.convocatoria.nombre}"></td>
+                    <td th:text="${presentacion.municipio.nombre}"></td>
+                    <th:block sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_FISCAL.getRole())}">
+                        <th:block sec:authorize="${hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_ADMIN.getRole())}">
+                            <td>
+                                <a class="btn btn-primary btn-xs"
+                                   th:href="@{/presentaciones/editar-presentacion/} + ${presentacion.id}" th:text="Editar"></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger btn-xs"
+                                   th:href="@{/presentaciones/eliminar/} + ${presentacion.id}" th:text="Eliminar"
+                                   onclick="return confirm('Estas seguro que quieres eliminar el presentacion?');"></a>
+                            </td>
+                        </th:block>
+                    </th:block>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

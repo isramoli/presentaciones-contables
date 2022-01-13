@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface IMunicipioService {
 
-    List<Municipio> findAll();
+    List<Municipio> buscarTodosMunicipios();
 
     Optional<Municipio> buscarPorNombre(String nombre);
 

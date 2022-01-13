@@ -26,7 +26,7 @@ public class IMunicipioServiceImpl implements IMunicipioService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Municipio> findAll() {
+    public List<Municipio> buscarTodosMunicipios() {
         return (List<Municipio>) municipioRepository.findAll();
     }
 

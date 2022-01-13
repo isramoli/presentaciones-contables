@@ -1,11 +1,15 @@
 package edu.viu.presentacionescontables.convocatorias.entity;
 
+import edu.viu.presentacionescontables.pesentaciones.entity.Presentacion;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "convocatoria")
@@ -31,6 +35,9 @@ public class Convocatoria implements Serializable {
 
     @Column
     private int documentacionRespaldatoriaRequerida;
+
+    @OneToMany
+    private List<Presentacion> presentacion;
 
     public String getNombre() {
         return nombre;
@@ -78,5 +85,13 @@ public class Convocatoria implements Serializable {
 
     public void setDocumentacionRespaldatoriaRequerida(int documentacionRespaldatoriaRequerida) {
         this.documentacionRespaldatoriaRequerida = documentacionRespaldatoriaRequerida;
+    }
+
+    public List<Presentacion> getPresentacion() {
+        return presentacion;
+    }
+
+    public void setPresentacion(List<Presentacion> presentacion) {
+        this.presentacion = presentacion;
     }
 }

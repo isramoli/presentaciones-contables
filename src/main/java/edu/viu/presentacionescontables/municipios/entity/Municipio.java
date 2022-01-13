@@ -1,5 +1,6 @@
 package edu.viu.presentacionescontables.municipios.entity;
 
+import edu.viu.presentacionescontables.pesentaciones.entity.Presentacion;
 import edu.viu.presentacionescontables.usuarios.entity.Usuario;
 
 import javax.persistence.CascadeType;
@@ -9,9 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "municipios")
@@ -26,6 +29,9 @@ public class Municipio implements Serializable {
 
     @ManyToOne
     private Usuario cuentadante;
+
+    @OneToMany
+    private List<Presentacion> presentaciones;
 
     public Municipio() {
     }
@@ -52,5 +58,13 @@ public class Municipio implements Serializable {
 
     public void setCuentadante(Usuario cuentadante) {
         this.cuentadante = cuentadante;
+    }
+
+    public List<Presentacion> getPresentaciones() {
+        return presentaciones;
+    }
+
+    public void setPresentaciones(List<Presentacion> presentaciones) {
+        this.presentaciones = presentaciones;
     }
 }

@@ -10,4 +10,5 @@ public interface IUsuarioRepository extends CrudRepository<Usuario, String> {
 
     @Query("Select u from Usuario u where u.tipoUsuario = 'ROLE_CUENTADANTE' ")
     List<Usuario> buscarUsuariosCuentadantes();
+
 }

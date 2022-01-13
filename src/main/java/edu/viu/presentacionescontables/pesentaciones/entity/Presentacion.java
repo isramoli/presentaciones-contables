@@ -1,52 +1,91 @@
 package edu.viu.presentacionescontables.pesentaciones.entity;
 
-import edu.viu.presentacionescontables.usuarios.entity.Usuario;
+import edu.viu.presentacionescontables.convocatorias.entity.Convocatoria;
+import edu.viu.presentacionescontables.municipios.entity.Municipio;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "municipios")
+@Table(name = "presentaciones")
 public class Presentacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
-    @Column(length = 30, unique = true, nullable = false, updatable = false)
-    private String nombre;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     @Column
-    private int categoria;
+    private LocalDate fechaPresentacion;
+
+    @Column
+    private boolean abierta;
+
+    @Column
+    private String documentoPresentacion;
 
     @ManyToOne
-    private Usuario cuentadante;
+    private Convocatoria convocatoria;
+
+    @ManyToOne
+    private Municipio municipio;
 
     public Presentacion() {
     }
 
-    public String getNombre() {
-        return nombre;
+    public long getId() {
+        return id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public int getCategoria() {
-        return categoria;
+    public LocalDate getFechaPresentacion() {
+        return fechaPresentacion;
     }
 
-    public void setCategoria(int categoria) {
-        this.categoria = categoria;
+    public void setFechaPresentacion(LocalDate fechaPresentacion) {
+        this.fechaPresentacion = fechaPresentacion;
     }
 
-    public Usuario getCuentadante() {
-        return cuentadante;
+    public boolean isAbierta() {
+        return abierta;
     }
 
-    public void setCuentadante(Usuario cuentadante) {
-        this.cuentadante = cuentadante;
+    public void setAbierta(boolean abierta) {
+        this.abierta = abierta;
+    }
+
+    public Convocatoria getConvocatoria() {
+        return convocatoria;
+    }
+
+    public void setConvocatoria(Convocatoria convocatoria) {
+        this.convocatoria = convocatoria;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
+    public String getDocumentoPresentacion() {
+        return documentoPresentacion;
+    }
+
+    public void setDocumentoPresentacion(String documentoPresentacion) {
+        this.documentoPresentacion = documentoPresentacion;
     }
 }

@@ -1,7 +1,8 @@
 package edu.viu.presentacionescontables.pesentaciones.service;
 
+import edu.viu.presentacionescontables.convocatorias.entity.Convocatoria;
+import edu.viu.presentacionescontables.municipios.entity.Municipio;
 import edu.viu.presentacionescontables.pesentaciones.entity.Presentacion;
-import edu.viu.presentacionescontables.usuarios.entity.Usuario;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,11 +11,13 @@ public interface IPresentacionService {
 
     List<Presentacion> findAll();
 
-    Optional<Presentacion> buscarPorNombre(String nombre);
+    Optional<Presentacion> buscarPorId(long id);
 
     void guardar(Presentacion usuario);
 
-    void borrar(String nombre);
+    void borrar(long id);
 
-    List<Usuario> buscarUsuarios();
+    List<Convocatoria> buscarConvocatorias();
+
+    List<Municipio> buscarMunicipios();
 }

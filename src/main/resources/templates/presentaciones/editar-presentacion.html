@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container py-4">
+
+    <div class="card bg-dark text-white">
+        <div class="card-header" th:text="${titulo}"></div>
+        <div class="card-body">
+
+            <div th:object="${presentacion}" th:remove="tag">
+                <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
+                    role="alert">
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                </ul>
+            </div>
+
+            <form th:action="@{/presentaciones/editar-presentacion}" th:object="${presentacion}" method="post"
+                  enctype="multipart/form-data">
+                <input type="hidden" name="modoCreacion" th:value="${modoCreacion}"/>
+                <input type="hidden" th:field="*{id}"/>
+                <div class="form-group row">
+                    <label th:for="nombre" class="col-sm-2 col-form-label">Fecha presentación</label>
+                    <div class="col-sm-6">
+                        <input type="date"
+                               th:field="*{fechaPresentacion}"
+                               class="form-control"
+                               th:errorclass="'form-control alert-danger'"
+                               required/>
+                        <small class="form-text text-danger"
+                               th:if="${#fields.hasErrors('fechaPresentacion')}"
+                               th:errors="*{fechaPresentacion}">
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label th:for="abierta" class="col-sm-2 col-form-label">Abierta</label>
+                    <div class="col-sm-6">
+                        <select th:field="*{abierta}"
+                                class="form-control"
+                                th:errorclass="'form-control alert-danger'"
+                                required>
+                            <option th:text="${'Sí'}" th:value="${1}"></option>
+                            <option th:text="${'No'}" th:value="${0}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label th:for="categoria" class="col-sm-2 col-form-label">Documento Presentación</label>
+                    <div class="col-sm-6">
+                        <input type="text"
+                               th:field="*{documentoPresentacion}"
+                               class="form-control"
+                               th:errorclass="'form-control alert-danger'"/>
+                        <small class="form-text text-danger"
+                               th:if="${#fields.hasErrors('documentoPresentacion')}" th:errors="*{documentoPresentacion}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label th:for="convocatoria" class="col-sm-2 col-form-label">Convocatoria</label>
+                    <div class="col-sm-6">
+                        <select th:field="*{convocatoria}"
+                                class="form-control"
+                                th:errorclass="'form-control alert-danger'"
+                                required>
+                            <option th:each="convocatoria : ${listaConvocatorias}"
+                                    th:text="${convocatoria.nombre}"
+                                    th:value="${convocatoria.nombre}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label th:for="municipio" class="col-sm-2 col-form-label">Municipio</label>
+                    <div class="col-sm-6">
+                        <select th:field="*{municipio}"
+                                class="form-control"
+                                th:errorclass="'form-control alert-danger'"
+                                required>
+                            <option th:each="municipio : ${listaMunicipios}"
+                                    th:text="${municipio.nombre}"
+                                    th:value="${municipio.nombre}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="submit" th:value="${titulo}"
+                               class="btn btn-secondary"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

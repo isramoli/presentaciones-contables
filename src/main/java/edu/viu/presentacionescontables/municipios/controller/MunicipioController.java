@@ -33,7 +33,7 @@ public class MunicipioController {
     @PreAuthorize("hasRole(T(edu.viu.presentacionescontables.config.RoleEnum).ROLE_CUENTADANTE.getRole())")
     @GetMapping(value = "/lista-municipios")
     public String listarmunicipios(Model model) {
-        List<Municipio> municipios = municipioService.findAll();
+        List<Municipio> municipios = municipioService.buscarTodosMunicipios();
 
         model.addAttribute("titulo", "Listado de municipios");
         model.addAttribute("municipios", municipios);
