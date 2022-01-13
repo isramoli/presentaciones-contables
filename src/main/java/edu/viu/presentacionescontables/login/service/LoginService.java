@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service("jpaUserDetailsService")
+@Service
 public class LoginService implements UserDetailsService {
 
     private final Logger logger = LoggerFactory.getLogger(LoginService.class);
