@@ -1,9 +1,9 @@
-package edu.viu.presentacionescontables.convocatorias.controller;
+package edu.viu.presentacionescontables.informacion.controller;
 
 import edu.viu.presentacionescontables.config.RoleEnum;
 import edu.viu.presentacionescontables.convocatorias.enums.TipoDocumentacionEnum;
 import edu.viu.presentacionescontables.convocatorias.entity.Convocatoria;
-import edu.viu.presentacionescontables.convocatorias.service.IConvocatoriaService;
+import edu.viu.presentacionescontables.informacion.service.IInformacionService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +23,22 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/convocatorias")
-public class ConvocatoriaController {
+@RequestMapping("/informacion")
+public class InformacionController {
 
     protected final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
-    private IConvocatoriaService convocatoriaService;
+    private IInformacionService informacionService;
 
-    @GetMapping(value = "/lista-convocatorias")
+    @GetMapping(value = "/lista")
     public String listarConvocatorias(Model model) {
 
-        List<Convocatoria> convocatorias = convocatoriaService.buscarTodasConvocatorias();
-        model.addAttribute("titulo", "Listado de convocatorias");
+        List<Convocatoria> convocatorias = informacionService.buscarTodasConvocatorias();
+        model.addAttribute("titulo", "Listado de informacion");
         model.addAttribute("convocatorias", convocatorias);
 
-        return "convocatorias/lista-convocatorias";
+        return "informacion/lista-informacion";
     }
 
     @Secured("ROLE_ADMIN")
@@ -58,7 +58,7 @@ public class ConvocatoriaController {
     @GetMapping("/editar-convocatoria/{nombre}")
     public String editar(@PathVariable String nombre, Model model) {
 
-        model.addAttribute("convocatoria", convocatoriaService.buscarPorNombre(nombre));
+        model.addAttribute("convocatoria", informacionService.buscarPorNombre(nombre));
         model.addAttribute("modoCreacion", false);
         model.addAttribute("tiposConvocatorias", RoleEnum.obtenerTodosRoles());
         model.addAttribute("titulo", "Editar convocatoria");
@@ -76,7 +76,7 @@ public class ConvocatoriaController {
             respuesta = "convocatorias/editar-convocatoria";
         } else {
             String mensajeFlash = modoCreacion ? "Convocatoria creada con éxito!" : "Convocatoria editada con éxito!";
-            convocatoriaService.guardar(convocatoria);
+            informacionService.guardar(convocatoria);
             status.setComplete();
             flash.addFlashAttribute("success", mensajeFlash);
             respuesta = "redirect:/convocatorias/lista-convocatorias";
@@ -89,7 +89,7 @@ public class ConvocatoriaController {
     @GetMapping(value = "/eliminar/{nombre}")
     public String eliminar(@PathVariable String nombre, RedirectAttributes flash) {
 
-        convocatoriaService.borrar(nombre);
+        informacionService.borrar(nombre);
         flash.addFlashAttribute("success", "Convocatoria eliminada con correctamente!");
 
         return "redirect:/convocatorias/lista-convocatorias";

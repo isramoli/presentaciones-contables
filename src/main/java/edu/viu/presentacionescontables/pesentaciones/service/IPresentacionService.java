@@ -20,4 +20,6 @@ public interface IPresentacionService {
     List<Convocatoria> buscarConvocatorias();
 
     List<Municipio> buscarMunicipios();
+
+    Presentacion buscarPorConvocatorias(Convocatoria convocatoria);
 }

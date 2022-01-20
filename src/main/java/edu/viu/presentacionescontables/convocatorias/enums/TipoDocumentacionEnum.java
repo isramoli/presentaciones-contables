@@ -1,4 +1,4 @@
-package edu.viu.presentacionescontables.convocatorias.Enum;
+package edu.viu.presentacionescontables.convocatorias.enums;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

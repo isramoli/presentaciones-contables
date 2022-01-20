@@ -95,7 +95,7 @@
                                 class="form-control"
                                 th:errorclass="'form-control alert-danger'"
                                 required>
-                            <option th:each="tipo : ${T(edu.viu.presentacionescontables.convocatorias.Enum.TipoDocumentacionEnum).obtenerTodosTipos()}"
+                            <option th:each="tipo : ${T(edu.viu.presentacionescontables.convocatorias.enums.TipoDocumentacionEnum).obtenerTodosTipos()}"
                                     th:value="${tipo.key}"
                                     th:text="${tipo.value}">
                             </option>

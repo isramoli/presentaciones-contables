@@ -1,13 +1,11 @@
-package edu.viu.presentacionescontables.convocatorias.service;
+package edu.viu.presentacionescontables.informacion.service;
 
 import edu.viu.presentacionescontables.convocatorias.entity.Convocatoria;
-import edu.viu.presentacionescontables.informacion.service.IInformacionService;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface IConvocatoriaService {
+public interface IInformacionService {
 
     List<Convocatoria> buscarTodasConvocatorias();
 

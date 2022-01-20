@@ -57,4 +57,9 @@ public class IPresentacionServiceImpl implements IPresentacionService {
     public List<Municipio> buscarMunicipios() {
         return iMunicipioService.buscarTodosMunicipios();
     }
+
+    @Override
+    public Presentacion buscarPorConvocatorias(Convocatoria convocatoria) {
+        return presentacionRepository.buscarPorConvocatoria(convocatoria.getNombre());
+    }
 }

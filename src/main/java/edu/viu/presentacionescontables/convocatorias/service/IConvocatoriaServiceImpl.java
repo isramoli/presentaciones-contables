@@ -3,7 +3,6 @@ package edu.viu.presentacionescontables.convocatorias.service;
 import edu.viu.presentacionescontables.convocatorias.entity.Convocatoria;
 import edu.viu.presentacionescontables.convocatorias.repository.IConvocatoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +14,6 @@ public class IConvocatoriaServiceImpl implements IConvocatoriaService {
 
     @Autowired
     private IConvocatoriaRepository ConvocatoriaRepository;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)

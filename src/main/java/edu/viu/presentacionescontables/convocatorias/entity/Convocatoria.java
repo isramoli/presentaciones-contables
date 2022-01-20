@@ -4,7 +4,9 @@ import edu.viu.presentacionescontables.pesentaciones.entity.Presentacion;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -36,7 +38,7 @@ public class Convocatoria implements Serializable {
     @Column
     private int documentacionRespaldatoriaRequerida;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "convocatoria")
     private List<Presentacion> presentacion;
 
     public String getNombre() {
