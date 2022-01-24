@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Enum para declaracion de los tipos de documentación
+ */
 public enum TipoDocumentacionEnum {
 
     LIBRO_DIARIO(0, "Libro Diario"),

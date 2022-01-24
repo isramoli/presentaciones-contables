@@ -19,37 +19,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio para el control del login
+ */
 @Service
 public class LoginService implements UserDetailsService {
 
-    private final Logger logger = LoggerFactory.getLogger(LoginService.class);
+	private final Logger logger = LoggerFactory.getLogger(LoginService.class);
 
-    @Autowired
-    private IUsuarioService usuarioService;
+	@Autowired
+	private IUsuarioService usuarioServiceImpl;
 
-    @Override
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String nombre) throws UsernameNotFoundException {
+	/**
+	 * Carga los datos del usuario por nombre
+	 *
+	 * @param nombre Identificador del usuario
+	 * @return Devueve el usuario
+	 * @throws UsernameNotFoundException Exepción al no encontrar al usuario
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public UserDetails loadUserByUsername(String nombre) throws UsernameNotFoundException {
 
-        Optional<Usuario> usuario = usuarioService.buscarPorNombre(nombre);
+		Optional<Usuario> usuario = usuarioServiceImpl.buscarPorNombre(nombre);
 
-        if (!usuario.isPresent()) {
-            logger.error("Error en el Login: no existe el usuario '" + nombre + "' en el sistema!");
-            throw new UsernameNotFoundException("Username: " + nombre + " no existe en el sistema!");
-        } else {
+		if (!usuario.isPresent()) {
+			logger.error("Error en el Login: no existe el usuario '" + nombre + "' en el sistema!");
+			throw new UsernameNotFoundException("Username: " + nombre + " no existe en el sistema!");
+		} else {
 
-            List<GrantedAuthority> authorities = new ArrayList<>();
-            RoleEnum.obtenRolesHijos(usuario.get().getTipoUsuario()).forEach(rolHijo -> authorities.add(new SimpleGrantedAuthority(rolHijo)));
+			List<GrantedAuthority> authorities = new ArrayList<>();
+			RoleEnum.obtenRolesHijos(usuario.get().getTipoUsuario()).forEach(rolHijo -> authorities.add(new SimpleGrantedAuthority(rolHijo)));
 
-            if (authorities.isEmpty()) {
-                logger.error("Error en el Login: Usuario '" + nombre + "' no tiene roles asignados!");
-                throw new UsernameNotFoundException("Error en el Login: usuario '" + nombre + "' no tiene roles asignados!");
-            }
+			if (authorities.isEmpty()) {
+				logger.error("Error en el Login: Usuario '" + nombre + "' no tiene roles asignados!");
+				throw new UsernameNotFoundException("Error en el Login: usuario '" + nombre + "' no tiene roles asignados!");
+			}
 
-            return new User(usuario.get().getNombre(), usuario.get().getPassword(), true, true, true, true, authorities);
-        }
+			return new User(usuario.get().getNombre(), usuario.get().getPassword(), true, true, true, true, authorities);
+		}
 
-    }
+	}
 
 
 }

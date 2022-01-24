@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Objeto representación de los municipios
+ */
 @Entity
 @Table(name = "municipios")
 public class Municipio implements Serializable {

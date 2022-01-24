@@ -1,16 +1,19 @@
 package edu.viu.presentacionescontables;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Clase para lanzar la aplicación
+ */
 @SpringBootApplication
 public class ApplicationRun {
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-
+	/**
+	 * Lanzador de la aplicación
+	 *
+	 * @param args Argumentos de la línea de comendos
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(ApplicationRun.class, args);
 	}

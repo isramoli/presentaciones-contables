@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Locale;
 
-
+/**
+ * Configuraciónes spring mvc
+ */
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/error_403").setViewName("error_403");
-    }
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -38,7 +38,6 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
     }
 
-    /* https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html#configuring-a-conversion-service */
     @Override
     public void addFormatters(final FormatterRegistry registry) {
         registry.addFormatter(dateFormatter());

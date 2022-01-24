@@ -1,8 +1,6 @@
 package edu.viu.presentacionescontables.convocatorias.service;
 
 import edu.viu.presentacionescontables.convocatorias.entity.Convocatoria;
-import edu.viu.presentacionescontables.informacion.service.IInformacionService;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +11,7 @@ public interface IConvocatoriaService {
 
     Optional<Convocatoria> buscarPorNombre(String nombre);
 
-    void guardar(Convocatoria Convocatoria);
+    void guardar(Convocatoria convocatoria);
 
     void borrar(String nombre);
 }

@@ -8,47 +8,44 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Configuración de seguridad de spring
+ */
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private LoginSuccessHandler successHandler;
+	@Autowired
+	private LoginSuccessHandler successHandler;
 
-    @Autowired
-    private LoginService loginService;
+	@Autowired
+	private LoginService loginService;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar").permitAll()
-                /*.antMatchers("/ver/**").hasAnyRole("USER")*/
-                /*.antMatchers("/uploads/**").hasAnyRole("USER")*/
-                /*.antMatchers("/form/**").hasAnyRole("ADMIN")*/
-                /*.antMatchers("/eliminar/**").hasAnyRole("ADMIN")*/
-                /*.antMatchers("/factura/**").hasAnyRole("ADMIN")*/
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .successHandler(successHandler)
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout().permitAll()
-                .and()
-                .exceptionHandling().accessDeniedPage("/error_403");
+		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar").permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.successHandler(successHandler)
+				.loginPage("/login")
+				.permitAll()
+				.and()
+				.logout().permitAll()
+				.and()
+				.exceptionHandling().accessDeniedPage("/error_403");
 
-    }
+	}
 
-    @Autowired
-    public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
-        build.userDetailsService(loginService)
-                .passwordEncoder(passwordEncoder);
-    }
+	@Autowired
+	public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
+		build.userDetailsService(loginService)
+				.passwordEncoder(passwordEncoder);
+	}
 }

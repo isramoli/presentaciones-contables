@@ -9,9 +9,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/**
+ * Controlador para el login
+ */
 @Controller
 public class LoginController {
 
+    /**
+     * Se encarga de recibir las peticiones de login
+     * @return Devuelve la pantalla de login
+     */
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout,

@@ -10,12 +10,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Enum para declaracion de los roles
+ */
 public enum RoleEnum implements GrantedAuthority {
 
-    ROLE_ADMIN(Code.ROLE_ADMIN, Code.VALOR_ADMIN, Code.NAME_ADMIN),
-    ROLE_FISCAL_GENERAL(Code.ROLE_FISCAL_GENERAL, Code.VALOR_FISCAL_GENERAL, Code.NAME_FISCAL_GENERAL),
-    ROLE_FISCAL(Code.ROLE_FISCAL, Code.VALOR_FISCAL, Code.NAME_FISCAL),
-    ROLE_CUENTADANTE(Code.ROLE_CUENTADANTE, Code.VALOR_CUENTADANTE, Code.NAME_CUENTADANTE);
+    ROLE_ADMIN(RoleCons.ROLE_ADMIN, RoleCons.VALOR_ADMIN, RoleCons.NAME_ADMIN),
+    ROLE_FISCAL_GENERAL(RoleCons.ROLE_FISCAL_GENERAL, RoleCons.VALOR_FISCAL_GENERAL, RoleCons.NAME_FISCAL_GENERAL),
+    ROLE_FISCAL(RoleCons.ROLE_FISCAL, RoleCons.VALOR_FISCAL, RoleCons.NAME_FISCAL),
+    ROLE_CUENTADANTE(RoleCons.ROLE_CUENTADANTE, RoleCons.VALOR_CUENTADANTE, RoleCons.NAME_CUENTADANTE);
 
     private final String role;
     private final int valor;
@@ -70,7 +73,7 @@ public enum RoleEnum implements GrantedAuthority {
         return respuesta;
     }
 
-    public static class Code {
+    public static class RoleCons {
         public static final String ROLE_ADMIN = "ROLE_ADMIN";
         public static final String NAME_ADMIN = "Administador";
         public static final int VALOR_ADMIN = 0;

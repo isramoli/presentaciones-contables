@@ -16,5 +16,5 @@ public interface IMunicipioService {
 
     void borrar(String nombre);
 
-    List<Usuario> buscarUsuarios();
+    List<Usuario> buscarUsuariosCuentadantes();
 }

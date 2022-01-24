@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * Objeto representación de la presentación
+ */
 @Entity
 @Table(name = "presentaciones")
 public class Presentacion implements Serializable {
